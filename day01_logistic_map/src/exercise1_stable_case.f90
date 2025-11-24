@@ -3,16 +3,20 @@ module exercise1
 
 contains
    subroutine stable_case(r_in,x_in)
-      real, intent(in) :: r_in
-      real, intent(in) :: x_in
+      real, intent(in) :: r_in,x_in
       integer :: i
       real :: x 
       character(len=50) :: filename
       integer :: iostat_val, unit
       character(len=100) :: iostat_msg
+      character(len=9) :: r_str
+      character(len=9) :: x_str 
 
       x = x_in 
-      filename = 'data'//'_'//r_in//'_'//x//'.csv'
+      write(r_str,'(F4.2)') r_in
+      write(x_str,'(F4.3)') x_in
+
+      filename = 'data'//'_'//trim(r_str)//'_'//trim(x_str)//'.csv'
       print *, filename
       open (newunit=unit, file=filename, status='replace', action='write', iostat=iostat_val, iomsg=iostat_msg)
       if (iostat_val /= 0) then
